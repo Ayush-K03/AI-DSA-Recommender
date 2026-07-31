@@ -1,0 +1,12 @@
+{
+  "name": "ai-dsa-recommender",
+  "version": "1.0.0",
+  "description": "a project to recommend problems according to past exp and score based building",
+  "license": "ISC",
+  "author": "Ayush-Kr",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
