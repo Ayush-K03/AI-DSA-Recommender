@@ -1,0 +1,31 @@
+body {
+  width: 360px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+.popup-container { padding: 16px; }
+h2 { margin: 0 0 12px 0; color: #ffa116; font-size: 18px; }
+.tab-bar { display: flex; gap: 6px; margin-bottom: 12px; }
+.tab-btn {
+  flex: 1; padding: 8px 4px; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.6); cursor: pointer; font-size: 11px;
+  font-weight: 600; transition: all 0.2s; text-align: center;
+}
+.tab-btn.active { background: rgba(255,161,22,0.15); color: #ffa116; border-color: rgba(255,161,22,0.3); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.review-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 12px; margin-bottom: 8px;
+}
+.review-card h4 { margin: 0 0 4px 0; font-size: 13px; }
+.review-card h4 a { color: #64b5f6; text-decoration: none; }
+.review-card h4 a:hover { text-decoration: underline; }
+.review-card .hint { font-size: 11px; color: rgba(255,255,255,0.5); margin: 4px 0 0 0; }
+.review-card .interval { font-size: 11px; color: #ffa116; }
+.empty-state { text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; padding: 20px 0; }
+.loading { text-align: center; color: rgba(255,255,255,0.3); font-size: 12px; }

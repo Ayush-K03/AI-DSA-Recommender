@@ -1,0 +1,515 @@
+#leetapex-help-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ---------- The Button ---------- */
+#leetapex-help-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* --- Disabled State (default) --- */
+#leetapex-help-btn.leetapex-disabled {
+  background: rgba(40, 40, 40, 0.75);
+  color: rgba(255, 255, 255, 0.35);
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+#leetapex-help-btn.leetapex-disabled .leetapex-icon {
+  opacity: 0.35;
+}
+
+/* --- Enabled State (error detected) --- */
+#leetapex-help-btn.leetapex-enabled {
+  background: linear-gradient(135deg, rgba(255, 161, 22, 0.18) 0%, rgba(255, 94, 58, 0.18) 100%);
+  color: #ffa116;
+  cursor: pointer;
+  border-color: rgba(255, 161, 22, 0.3);
+  box-shadow:
+    0 4px 24px rgba(255, 161, 22, 0.2),
+    0 0 0 1px rgba(255, 161, 22, 0.1) inset,
+    0 0 40px rgba(255, 161, 22, 0.06);
+  animation: leetapex-pulse 2.5s ease-in-out infinite;
+}
+
+#leetapex-help-btn.leetapex-enabled:hover {
+  background: linear-gradient(135deg, rgba(255, 161, 22, 0.28) 0%, rgba(255, 94, 58, 0.28) 100%);
+  border-color: rgba(255, 161, 22, 0.5);
+  box-shadow:
+    0 6px 32px rgba(255, 161, 22, 0.3),
+    0 0 0 1px rgba(255, 161, 22, 0.2) inset,
+    0 0 60px rgba(255, 161, 22, 0.1);
+  transform: translateY(-2px);
+}
+
+#leetapex-help-btn.leetapex-enabled:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+#leetapex-help-btn.leetapex-enabled .leetapex-icon {
+  opacity: 1;
+}
+
+/* --- Icon inside button --- */
+.leetapex-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: opacity 0.3s ease;
+}
+
+/* ---------- Pulse / Glow Animation ---------- */
+@keyframes leetapex-pulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 24px rgba(255, 161, 22, 0.2),
+      0 0 0 1px rgba(255, 161, 22, 0.1) inset,
+      0 0 40px rgba(255, 161, 22, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 4px 32px rgba(255, 161, 22, 0.35),
+      0 0 0 1px rgba(255, 161, 22, 0.2) inset,
+      0 0 60px rgba(255, 161, 22, 0.12);
+  }
+}
+
+/* ---------- Tooltip ---------- */
+#leetapex-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+  max-width: 500px; 
+  word-wrap: break-word;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  background: rgba(30, 30, 30, 0.92);
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Tooltip arrow */
+#leetapex-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  right: 24px;
+  width: 10px;
+  height: 10px;
+  background: rgba(30, 30, 30, 0.92);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transform: rotate(45deg);
+}
+
+/* Tooltip visible */
+#leetapex-tooltip.leetapex-tooltip-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Tooltip in disabled state styling */
+#leetapex-tooltip.leetapex-tooltip-disabled {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Tooltip in enabled state styling */
+#leetapex-tooltip.leetapex-tooltip-enabled {
+  color: #ffa116;
+  border-color: rgba(255, 161, 22, 0.15);
+}
+
+
+
+
+
+#leetapex-recommended-questions-box {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 99999;
+  width: 320px;
+  background: rgba(30, 30, 30, 0.95);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+
+#leetapex-recommended-questions-box h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #ffa116;
+}
+
+#leetapex-recommended-questions-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#leetapex-recommended-questions-box a {
+  color: #64b5f6;
+  text-decoration: none;
+}
+#leetapex-recommended-questions-box a:hover {
+  text-decoration: underline;
+}
+
+
+
+/* Ensure relative positioning for absolute placement of close button */
+#leetapex-recommended-questions-box {
+  position: fixed; /* or relative if wrapped */
+  /* your other box styles */
+}
+
+/* Close Button Styling */
+#leetapex-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+#leetapex-close-btn:hover {
+  color: #ff5e3a;
+  transform: scale(1.15);
+}
+
+
+
+
+/* ---------- Big-O Analysis Box ---------- */
+#leetapex-big-o-analysis-box {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 99999;
+  width: 340px;
+  padding: 18px;
+  background: rgba(25, 25, 25, 0.95);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#leetapex-big-o-analysis-box h3 {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffa116;
+}
+
+#leetapex-big-o-analysis-box p {
+  margin: 6px 0;
+}
+
+#leetapex-big-o-analysis-box button {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+#leetapex-big-o-analysis-box button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ff5e3a;
+}
+
+
+
+/* ---------- Difficulty Feedback Box ---------- */
+#leetapex-difficulty-feedback-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100000;
+  width: 340px;
+  padding: 24px;
+  background: rgba(25, 25, 25, 0.97);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 161, 22, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  animation: leetapex-fadeIn 0.3s ease;
+}
+
+#leetapex-difficulty-feedback-box h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  color: #ffa116;
+}
+
+@keyframes leetapex-fadeIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+
+/* LeetApex Due Banner Styles */
+.leetapex-due-banner {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    width: 340px;
+    padding: 16px 20px;
+    background: rgba(30, 30, 38, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #f3f4f6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: slideInBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.leetapex-due-banner.closing {
+    animation: fadeOutBanner 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInBanner {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutBanner {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+.banner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner-title {
+    font-weight: 600;
+    font-size: 15px;
+    background: linear-gradient(135deg, #a78bfa, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.banner-close-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.banner-close-btn:hover {
+    color: #f3f4f6;
+}
+
+.banner-body {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #d1d5db;
+    margin: 0;
+}
+
+.banner-action-btn {
+    align-self: flex-start;
+    margin-top: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.banner-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.banner-action-btn:active {
+    transform: translateY(0);
+}
+
+
+/* Container to keep button and tooltip positioned correctly */
+.leetapex-eye-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* The Eye Button */
+.leetapex-eye-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(30, 30, 38, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: #a78bfa; /* Violet accent color */
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.leetapex-eye-btn:hover {
+    background: rgba(40, 40, 50, 0.95);
+    border-color: rgba(167, 139, 250, 0.4);
+    color: #c084fc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(167, 139, 250, 0.25);
+}
+
+.leetapex-eye-btn:active {
+    transform: translateY(0);
+}
+
+.leetapex-eye-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Tooltip Styling */
+.leetapex-eye-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px); /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    width: 220px;
+    padding: 12px 14px;
+    background: rgba(20, 20, 25, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    color: #e5e7eb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.45;
+    pointer-events: none; /* Ignore mouse interactions when hidden */
+    opacity: 0;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
+    z-index: 100000;
+}
+
+/* Triangle Arrow pointing to the button */
+.leetapex-eye-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(20, 20, 25, 0.95) transparent transparent transparent;
+}
+
+/* Tooltip Active state */
+.leetapex-eye-tooltip.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* Tooltip Content Elements */
+.tooltip-title {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #a78bfa;
+    margin-bottom: 4px;
+}

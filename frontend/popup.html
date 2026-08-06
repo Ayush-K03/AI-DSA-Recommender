@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <div class="popup-container">
+      <h2>🏔️ LeetApex</h2>
+
+      <!-- Tab Buttons -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="review">📋 Review Today</button>
+        <button class="tab-btn" data-tab="upcoming">⏰ Upcoming</button>
+        <button class="tab-btn" data-tab="past">⏳ Past Missed</button>
+      </div>
+
+      <!-- Review Today Tab -->
+      <div id="tab-review" class="tab-content active">
+        <div id="review-list"><p class="loading">Loading...</p></div>
+      </div>
+
+      <!-- Upcoming Tab -->
+      <div id="tab-upcoming" class="tab-content">
+        <div id="upcoming-list"><p class="loading">Loading...</p></div>
+      </div>
+
+      <!-- Past missed reminders tab  -->
+      <div id="tab-past" class="tab-content">
+        <div id="past-list"><p class="loading">Loading...</p></div>
+      </div>
+      <button id="close-popup">Close</button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
