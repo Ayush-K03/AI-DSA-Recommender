@@ -213,12 +213,35 @@ window.addEventListener('load', extractLeetCodeData);
 
 
 
+// Function to show the AI analyzing spinner
+function showAnalyzingSpinner() {
+  if (document.getElementById("leetapex-analyzing-spinner")) return;
+  const spinner = document.createElement("div");
+  spinner.id = "leetapex-analyzing-spinner";
+  spinner.innerHTML = `
+    <div class="leetapex-spinner-icon"></div>
+    <div class="leetapex-spinner-text">🧠 LeetWiz is analyzing your submission...</div>
+  `;
+  document.body.appendChild(spinner);
+}
+
+// Function to hide the AI analyzing spinner
+function hideAnalyzingSpinner() {
+  const spinner = document.getElementById("leetapex-analyzing-spinner");
+  if (spinner) {
+    spinner.classList.add("fade-out");
+    setTimeout(() => spinner.remove(), 300);
+  }
+}
+
 //function to call bg when the button is clicked
 async function backGroundTaskCall(event,actionName) {
+  showAnalyzingSpinner();
   const response = await chrome.runtime.sendMessage({
     action: actionName,
     data : event.data.payload
-  })
+  });
+  hideAnalyzingSpinner();
   return response;
 }
 

@@ -7,7 +7,13 @@
   </head>
   <body>
     <div class="popup-container">
-      <h2>🏔️ LeetApex</h2>
+      <div class="header-wrapper">
+        <div>
+          <h2>🏔️ LeetApex</h2>
+          <div class="subtitle">Your DSA Companion</div>
+        </div>
+        <button id="close-popup-icon" title="Close">&#10005;</button>
+      </div>
 
       <!-- Tab Buttons -->
       <div class="tab-bar">
@@ -18,19 +24,24 @@
 
       <!-- Review Today Tab -->
       <div id="tab-review" class="tab-content active">
-        <div id="review-list"><p class="loading">Loading...</p></div>
+        <div id="review-list">
+          <div class="loading">Loading...</div>
+        </div>
       </div>
 
       <!-- Upcoming Tab -->
       <div id="tab-upcoming" class="tab-content">
-        <div id="upcoming-list"><p class="loading">Loading...</p></div>
+        <div id="upcoming-list">
+          <div class="loading">Loading...</div>
+        </div>
       </div>
 
       <!-- Past missed reminders tab  -->
       <div id="tab-past" class="tab-content">
-        <div id="past-list"><p class="loading">Loading...</p></div>
+        <div id="past-list">
+          <div class="loading">Loading...</div>
+        </div>
       </div>
-      <button id="close-popup">Close</button>
     </div>
     <script src="popup.js"></script>
   </body>

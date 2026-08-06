@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ---------- Global / Reusable ---------- */
+:root {
+  --leetapex-violet: #a78bfa;
+  --leetapex-violet-dark: #8b5cf6;
+  --leetapex-orange: #ffa116;
+  --leetapex-green: #34d399;
+  --leetapex-red: #f87171;
+  --leetapex-glass-bg: rgba(18, 18, 28, 0.92);
+  --leetapex-glass-border: rgba(255, 255, 255, 0.08);
+  --leetapex-text-main: rgba(255, 255, 255, 0.9);
+  --leetapex-text-muted: rgba(255, 255, 255, 0.6);
+  --leetapex-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 #leetapex-help-wrapper {
   position: fixed;
   bottom: 20px;
@@ -7,7 +23,7 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--leetapex-font);
 }
 
 /* ---------- The Button ---------- */
@@ -17,11 +33,11 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50px;
+  border: 1px solid var(--leetapex-glass-border);
+  border-radius: 28px;
   font-size: 13.5px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(16px);
@@ -30,14 +46,16 @@
   outline: none;
   white-space: nowrap;
   user-select: none;
+  font-family: var(--leetapex-font);
 }
 
 /* --- Disabled State (default) --- */
 #leetapex-help-btn.leetapex-disabled {
-  background: rgba(40, 40, 40, 0.75);
-  color: rgba(255, 255, 255, 0.35);
+  background: rgba(30, 30, 38, 0.75);
+  color: var(--leetapex-text-muted);
   cursor: not-allowed;
   border-color: rgba(255, 255, 255, 0.05);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -47,24 +65,24 @@
 
 /* --- Enabled State (error detected) --- */
 #leetapex-help-btn.leetapex-enabled {
-  background: linear-gradient(135deg, rgba(255, 161, 22, 0.18) 0%, rgba(255, 94, 58, 0.18) 100%);
-  color: #ffa116;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.18) 0%, rgba(139, 92, 246, 0.18) 100%);
+  color: var(--leetapex-violet);
   cursor: pointer;
-  border-color: rgba(255, 161, 22, 0.3);
+  border-color: rgba(167, 139, 250, 0.3);
   box-shadow:
-    0 4px 24px rgba(255, 161, 22, 0.2),
-    0 0 0 1px rgba(255, 161, 22, 0.1) inset,
-    0 0 40px rgba(255, 161, 22, 0.06);
-  animation: leetapex-pulse 2.5s ease-in-out infinite;
+    0 4px 24px rgba(167, 139, 250, 0.2),
+    0 0 0 1px rgba(167, 139, 250, 0.1) inset,
+    0 0 40px rgba(167, 139, 250, 0.06);
+  animation: leetapex-pulse-violet 2.5s ease-in-out infinite;
 }
 
 #leetapex-help-btn.leetapex-enabled:hover {
-  background: linear-gradient(135deg, rgba(255, 161, 22, 0.28) 0%, rgba(255, 94, 58, 0.28) 100%);
-  border-color: rgba(255, 161, 22, 0.5);
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.28) 0%, rgba(139, 92, 246, 0.28) 100%);
+  border-color: rgba(167, 139, 250, 0.5);
   box-shadow:
-    0 6px 32px rgba(255, 161, 22, 0.3),
-    0 0 0 1px rgba(255, 161, 22, 0.2) inset,
-    0 0 60px rgba(255, 161, 22, 0.1);
+    0 6px 32px rgba(167, 139, 250, 0.3),
+    0 0 0 1px rgba(167, 139, 250, 0.2) inset,
+    0 0 60px rgba(167, 139, 250, 0.1);
   transform: translateY(-2px);
 }
 
@@ -86,18 +104,18 @@
 }
 
 /* ---------- Pulse / Glow Animation ---------- */
-@keyframes leetapex-pulse {
+@keyframes leetapex-pulse-violet {
   0%, 100% {
     box-shadow:
-      0 4px 24px rgba(255, 161, 22, 0.2),
-      0 0 0 1px rgba(255, 161, 22, 0.1) inset,
-      0 0 40px rgba(255, 161, 22, 0.06);
+      0 4px 24px rgba(167, 139, 250, 0.2),
+      0 0 0 1px rgba(167, 139, 250, 0.1) inset,
+      0 0 40px rgba(167, 139, 250, 0.06);
   }
   50% {
     box-shadow:
-      0 4px 32px rgba(255, 161, 22, 0.35),
-      0 0 0 1px rgba(255, 161, 22, 0.2) inset,
-      0 0 60px rgba(255, 161, 22, 0.12);
+      0 4px 32px rgba(167, 139, 250, 0.35),
+      0 0 0 1px rgba(167, 139, 250, 0.2) inset,
+      0 0 60px rgba(167, 139, 250, 0.12);
   }
 }
 
@@ -106,11 +124,11 @@
   position: absolute;
   bottom: calc(100% + 10px);
   right: 0;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 12.5px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.5;
   white-space: normal;
   max-width: 500px; 
   word-wrap: break-word;
@@ -118,12 +136,32 @@
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.2s ease, transform 0.2s ease;
-  background: rgba(30, 30, 30, 0.92);
-  color: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--leetapex-glass-bg);
+  color: var(--leetapex-text-main);
+  border: 1px solid var(--leetapex-glass-border);
+  border-left: 2px solid var(--leetapex-violet);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  font-family: var(--leetapex-font);
+}
+
+/* Header pill inside tooltip */
+#leetapex-tooltip::before {
+  content: '💡 LeetApex Hint';
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--leetapex-violet);
+  font-weight: 700;
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+
+#leetapex-tooltip.leetapex-tooltip-disabled::before {
+  content: 'ℹ️ Info';
+  color: var(--leetapex-text-muted);
 }
 
 /* Tooltip arrow */
@@ -134,9 +172,9 @@
   right: 24px;
   width: 10px;
   height: 10px;
-  background: rgba(30, 30, 30, 0.92);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--leetapex-glass-bg);
+  border-right: 1px solid var(--leetapex-glass-border);
+  border-bottom: 1px solid var(--leetapex-glass-border);
   transform: rotate(45deg);
 }
 
@@ -149,85 +187,225 @@
 
 /* Tooltip in disabled state styling */
 #leetapex-tooltip.leetapex-tooltip-disabled {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--leetapex-text-muted);
+  border-left-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Tooltip in enabled state styling */
 #leetapex-tooltip.leetapex-tooltip-enabled {
-  color: #ffa116;
-  border-color: rgba(255, 161, 22, 0.15);
+  color: var(--leetapex-text-main);
+  border-left-color: var(--leetapex-violet);
+  box-shadow: 0 8px 32px rgba(167, 139, 250, 0.15);
 }
 
+/* ---------- AI Analyzing Spinner Overlay ---------- */
+#leetapex-analyzing-spinner {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: var(--leetapex-glass-bg);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(167, 139, 250, 0.1);
+  font-family: var(--leetapex-font);
+  animation: slideInBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
+#leetapex-analyzing-spinner.fade-out {
+  animation: fadeOutBanner 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
+.leetapex-spinner-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(167, 139, 250, 0.2);
+  border-top-color: var(--leetapex-violet);
+  border-right-color: var(--leetapex-orange);
+  animation: leetapex-spin 1s linear infinite;
+}
 
+@keyframes leetapex-spin {
+  to { transform: rotate(360deg); }
+}
 
+.leetapex-spinner-text {
+  font-size: 13px;
+  font-weight: 500;
+  background: linear-gradient(90deg, #e2e8f0 0%, #a78bfa 50%, #e2e8f0 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+/* ---------- Recommended Questions Box ---------- */
 #leetapex-recommended-questions-box {
   position: fixed;
   bottom: 80px;
   right: 24px;
   z-index: 99999;
-  width: 320px;
-  background: rgba(30, 30, 30, 0.95);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  width: 360px;
+  background: var(--leetapex-glass-bg);
+  color: var(--leetapex-text-main);
+  border: 1px solid var(--leetapex-glass-border);
+  border-radius: 18px;
+  padding: 0; /* padding moved to inner content to allow header flush */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  font-family: var(--leetapex-font);
+  animation: slideInBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+.leetapex-box-header {
+  background: linear-gradient(90deg, rgba(167, 139, 250, 0.15) 0%, rgba(30, 30, 38, 0) 100%);
   padding: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--leetapex-glass-border);
+  position: relative;
 }
 
 #leetapex-recommended-questions-box h3 {
-  margin: 0 0 10px 0;
-  font-size: 14px;
-  color: #ffa116;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--leetapex-violet);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#leetapex-recommended-questions-box .leetapex-box-content {
+  padding: 16px;
 }
 
 #leetapex-recommended-questions-box ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for list */
+#leetapex-recommended-questions-box ul::-webkit-scrollbar {
+  width: 4px;
+}
+#leetapex-recommended-questions-box ul::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.3);
+  border-radius: 4px;
+}
+
+#leetapex-recommended-questions-box li {
+  margin-bottom: 8px;
 }
 
 #leetapex-recommended-questions-box a {
-  color: #64b5f6;
+  display: block;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--leetapex-text-main);
   text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
 }
+
 #leetapex-recommended-questions-box a:hover {
-  text-decoration: underline;
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.2);
+  border-left-color: var(--leetapex-violet);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.leetapex-diff-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 
+.diff-easy { color: var(--leetapex-green); background: rgba(52, 211, 153, 0.1); }
+.diff-medium { color: var(--leetapex-orange); background: rgba(255, 161, 22, 0.1); }
+.diff-hard { color: var(--leetapex-red); background: rgba(248, 113, 113, 0.1); }
 
-/* Ensure relative positioning for absolute placement of close button */
-#leetapex-recommended-questions-box {
-  position: fixed; /* or relative if wrapped */
-  /* your other box styles */
+/* Slider styling */
+#leetapex-recommended-questions-box input[type="range"] {
+  width: 100%;
+  margin: 10px 0;
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+#leetapex-recommended-questions-box input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+#leetapex-recommended-questions-box input[type="range"]::-webkit-slider-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: var(--leetapex-violet);
+  -webkit-appearance: none;
+  margin-top: -5px;
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+#leetapex-recommended-questions-box input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+#leetapex-slider-value-container {
+  font-size: 12px;
+  color: var(--leetapex-text-muted);
+  margin-bottom: 12px;
+  text-align: right;
 }
 
 /* Close Button Styling */
 #leetapex-close-btn {
   position: absolute;
-  top: 10px;
-  right: 12px;
+  top: 14px;
+  right: 14px;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   line-height: 1;
   padding: 4px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 #leetapex-close-btn:hover {
-  color: #ff5e3a;
-  transform: scale(1.15);
+  color: var(--leetapex-red);
+  background: rgba(255, 255, 255, 0.05);
 }
-
-
-
 
 /* ---------- Big-O Analysis Box ---------- */
 #leetapex-big-o-analysis-box {
@@ -235,83 +413,140 @@
   top: 80px;
   right: 24px;
   z-index: 99999;
-  width: 340px;
-  padding: 18px;
-  background: rgba(25, 25, 25, 0.95);
-  color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  width: 360px;
+  padding: 0;
+  background: var(--leetapex-glass-bg);
+  color: var(--leetapex-text-main);
+  border: 1px solid var(--leetapex-glass-border);
+  border-radius: 18px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-family: var(--leetapex-font);
   font-size: 13px;
   line-height: 1.5;
+  overflow: hidden;
+  animation: slideInBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#leetapex-big-o-analysis-box.optimal {
+  border-color: rgba(52, 211, 153, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(52, 211, 153, 0.1);
+}
+
+#leetapex-big-o-analysis-box.improvable {
+  border-color: rgba(255, 161, 22, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 161, 22, 0.1);
 }
 
 #leetapex-big-o-analysis-box h3 {
-  margin: 0 0 12px 0;
+  margin: 0;
   font-size: 15px;
   font-weight: 600;
-  color: #ffa116;
+  color: var(--leetapex-orange);
 }
 
-#leetapex-big-o-analysis-box p {
-  margin: 6px 0;
+.big-o-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--leetapex-glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(255, 161, 22, 0.1) 0%, rgba(30, 30, 38, 0) 100%);
+}
+#leetapex-big-o-analysis-box.optimal .big-o-header {
+  background: linear-gradient(90deg, rgba(52, 211, 153, 0.1) 0%, rgba(30, 30, 38, 0) 100%);
+}
+#leetapex-big-o-analysis-box.optimal h3 { color: var(--leetapex-green); }
+
+.big-o-content {
+  padding: 16px;
 }
 
-#leetapex-big-o-analysis-box button {
-  position: absolute;
-  top: 12px;
-  right: 14px;
+.big-o-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.big-o-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.big-o-label { color: var(--leetapex-text-muted); }
+.big-o-value { font-family: monospace; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; color: var(--leetapex-violet); }
+
+.big-o-message {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.big-o-message strong { color: var(--leetapex-text-main); display: block; margin-bottom: 4px; }
+.big-o-message span { color: var(--leetapex-text-muted); font-size: 12px; }
+
+#leetapex-big-o-analysis-box button.close-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 4px;
+  border-radius: 50%;
   transition: all 0.2s ease;
+  line-height: 1;
 }
 
-#leetapex-big-o-analysis-box button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ff5e3a;
+#leetapex-big-o-analysis-box button.close-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--leetapex-red);
 }
-
-
 
 /* ---------- Difficulty Feedback Box ---------- */
+.leetapex-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  animation: fadeIn 0.3s ease;
+}
+
 #leetapex-difficulty-feedback-box {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100000;
-  width: 340px;
+  width: 360px;
   padding: 24px;
-  background: rgba(25, 25, 25, 0.97);
-  color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 161, 22, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(20px);
+  background: var(--leetapex-glass-bg);
+  color: var(--leetapex-text-main);
+  border: 1px solid var(--leetapex-glass-border);
+  border-top: 3px solid var(--leetapex-violet);
+  border-radius: 20px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 40px rgba(167, 139, 250, 0.1);
+  backdrop-filter: blur(24px);
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  animation: leetapex-fadeIn 0.3s ease;
+  font-family: var(--leetapex-font);
+  animation: leetapex-modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 #leetapex-difficulty-feedback-box h3 {
-  margin: 0 0 6px 0;
-  font-size: 16px;
-  color: #ffa116;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--leetapex-text-main);
 }
 
-@keyframes leetapex-fadeIn {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+@keyframes leetapex-modalIn {
+  from { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
-
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
 
 /* LeetApex Due Banner Styles */
 .leetapex-due-banner {
@@ -321,14 +556,15 @@
     z-index: 99999;
     width: 340px;
     padding: 16px 20px;
-    background: rgba(30, 30, 38, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--leetapex-glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--leetapex-glass-border);
+    border-left: 2px solid var(--leetapex-violet);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    color: #f3f4f6;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--leetapex-text-main);
+    font-family: var(--leetapex-font);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -340,25 +576,13 @@
 }
 
 @keyframes slideInBanner {
-    from {
-        transform: translateX(120%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes fadeOutBanner {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(120%);
-        opacity: 0;
-    }
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
 }
 
 .banner-header {
@@ -370,7 +594,7 @@
 .banner-title {
     font-weight: 600;
     font-size: 15px;
-    background: linear-gradient(135deg, #a78bfa, #818cf8);
+    background: linear-gradient(135deg, var(--leetapex-violet), #c084fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;
@@ -379,7 +603,7 @@
 .banner-close-btn {
     background: none;
     border: none;
-    color: #9ca3af;
+    color: var(--leetapex-text-muted);
     cursor: pointer;
     font-size: 18px;
     line-height: 1;
@@ -387,48 +611,14 @@
     transition: color 0.2s;
 }
 
-.banner-close-btn:hover {
-    color: #f3f4f6;
-}
+.banner-close-btn:hover { color: var(--leetapex-text-main); }
 
-.banner-body {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #d1d5db;
-    margin: 0;
-}
-
-.banner-action-btn {
-    align-self: flex-start;
-    margin-top: 4px;
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #ffffff;
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.banner-action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-}
-
-.banner-action-btn:active {
-    transform: translateY(0);
-}
-
-
-/* Container to keep button and tooltip positioned correctly */
+/* The Eye Button */
 .leetapex-eye-container {
     position: relative;
     display: inline-block;
 }
 
-/* The Eye Button */
 .leetapex-eye-btn {
     display: inline-flex;
     align-items: center;
@@ -436,13 +626,20 @@
     width: 36px;
     height: 36px;
     background: rgba(30, 30, 38, 0.8);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 50%;
-    color: #a78bfa; /* Violet accent color */
+    color: var(--leetapex-violet);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.leetapex-eye-btn::before {
+    content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 50%; border: 1px solid var(--leetapex-violet); opacity: 0;
+    transition: all 0.3s; transform: scale(0.9);
 }
 
 .leetapex-eye-btn:hover {
@@ -452,10 +649,9 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(167, 139, 250, 0.25);
 }
+.leetapex-eye-btn:hover::before { opacity: 0.3; transform: scale(1); }
 
-.leetapex-eye-btn:active {
-    transform: translateY(0);
-}
+.leetapex-eye-btn:active { transform: translateY(0); }
 
 .leetapex-eye-btn.disabled {
     color: rgba(255, 255, 255, 0.3);
@@ -469,36 +665,33 @@
     transform: none;
     box-shadow: none;
 }
+.leetapex-eye-btn.disabled::before { display: none; }
 
-.leetapex-eye-btn svg {
-    width: 18px;
-    height: 18px;
-}
+.leetapex-eye-btn svg { width: 18px; height: 18px; }
 
 /* Tooltip Styling */
 .leetapex-eye-tooltip {
     position: absolute;
-    bottom: calc(100% + 10px); /* Position above the button */
+    bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%) translateY(8px);
     width: 220px;
     padding: 12px 14px;
-    background: rgba(20, 20, 25, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
+    background: var(--leetapex-glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--leetapex-glass-border);
+    border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    color: #e5e7eb;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--leetapex-text-main);
+    font-family: var(--leetapex-font);
     font-size: 12.5px;
     line-height: 1.45;
-    pointer-events: none; /* Ignore mouse interactions when hidden */
+    pointer-events: none;
     opacity: 0;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
     z-index: 100000;
 }
 
-/* Triangle Arrow pointing to the button */
 .leetapex-eye-tooltip::after {
     content: "";
     position: absolute;
@@ -507,22 +700,20 @@
     transform: translateX(-50%);
     border-width: 6px;
     border-style: solid;
-    border-color: rgba(20, 20, 25, 0.95) transparent transparent transparent;
+    border-color: var(--leetapex-glass-bg) transparent transparent transparent;
 }
 
-/* Tooltip Active state */
 .leetapex-eye-tooltip.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
     pointer-events: auto;
 }
 
-/* Tooltip Content Elements */
 .tooltip-title {
     font-weight: 600;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #a78bfa;
+    color: var(--leetapex-violet);
     margin-bottom: 4px;
 }

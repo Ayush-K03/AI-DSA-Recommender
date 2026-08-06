@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Tab switching
-    const closeButton = document.getElementById('close-popup');
+    const closeButton = document.getElementById('close-popup-icon');
     if (closeButton) {
         closeButton.addEventListener('click', () => {
             window.close();
@@ -32,7 +32,7 @@ async function loadReviewToday() {
         const dueToday = allReviews.filter(item => item.date && new Date(item.date).toISOString().split('T')[0] === today);
 
         if (!dueToday.length) {
-            container.innerHTML = '<p class="empty-state">🎉 No reviews due today!</p>';
+            container.innerHTML = '<div class="empty-state"><span class="empty-icon">🎉</span><div>All caught up for today!</div></div>';
             return;
         }
         container.innerHTML = "";
@@ -62,7 +62,7 @@ async function loadUpcoming() {
         const upcoming = allReviews.filter(item => item.date && new Date(item.date).toISOString().split('T')[0] > today);
 
         if (!upcoming.length) {
-            container.innerHTML = '<p class="empty-state">No upcoming reviews</p>';
+            container.innerHTML = '<div class="empty-state"><span class="empty-icon">🗓️</span><div>No upcoming reviews</div></div>';
             return;
         }
         container.innerHTML = "";
@@ -95,7 +95,7 @@ async function loadPastMissed() {
         const past = allReviews.filter(item => item.date && new Date(item.date).toISOString().split('T')[0] < today);
 
         if (!past.length) {
-            container.innerHTML = '<p class="empty-state">No past reviews</p>';
+            container.innerHTML = '<div class="empty-state"><span class="empty-icon">✅</span><div>No missed reviews!</div></div>';
             return;
         }
         container.innerHTML = "";

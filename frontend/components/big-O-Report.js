@@ -1,51 +1,58 @@
 function createBigOAnalysisBox(bigOAnalysis) {
   const box = document.createElement("div");
   box.id = "leetapex-big-o-analysis-box";
-  const title = document.createElement("h3");
-  title.textContent = "Big O Analysis";
-  box.appendChild(title);
-  document.body.appendChild(box);
-
-
-  // Add a close button
-  const closeButton = document.createElement("button");
-  closeButton.textContent = "Close";
-  closeButton.addEventListener("click", () => {
-    box.remove();
-  }
-  );
-  box.appendChild(closeButton);
-
-  const timeComplexity = document.createElement("p");
-  timeComplexity.textContent = `Time Complexity: ${bigOAnalysis?.timeComplexity || "N/A"}`;
-  box.appendChild(timeComplexity);
-
-  const spaceComplexity = document.createElement("p");
-  spaceComplexity.textContent = `Space Complexity: ${bigOAnalysis?.spaceComplexity || "N/A"}`;
-  box.appendChild(spaceComplexity);
-
-  //if optimal show congrats message
+  
   if (bigOAnalysis?.isOptimal) {
-    const congratsMessage = document.createElement("p");
-    congratsMessage.textContent = "Congratulations! Your solution is optimal.";
-    box.appendChild(congratsMessage);
-  }
-  //else you can do better message
-  else {
-    const notOptimalMessage = document.createElement("p");
-    notOptimalMessage.textContent = "You can do better! Here's how:";
-    box.appendChild(notOptimalMessage);
+    box.classList.add("optimal");
+  } else {
+    box.classList.add("improvable");
   }
 
-  const optimalTimeComplexity = document.createElement("p");
-  optimalTimeComplexity.textContent = `Optimal Time Complexity: ${bigOAnalysis?.optimalTimeComplexity || "N/A"}`;
-  box.appendChild(optimalTimeComplexity);
+  const header = document.createElement("div");
+  header.className = "big-o-header";
+  
+  const title = document.createElement("h3");
+  title.textContent = "📊 Big-O Analysis";
+  header.appendChild(title);
 
-  const flaw = document.createElement("p");
-  flaw.textContent = `Flaw: ${bigOAnalysis?.flaw || "N/A"}`;
-  box.appendChild(flaw);
+  const closeButton = document.createElement("button");
+  closeButton.className = "close-btn";
+  closeButton.innerHTML = "✕";
+  closeButton.addEventListener("click", () => box.remove());
+  header.appendChild(closeButton);
+  
+  box.appendChild(header);
 
-  const suggestion = document.createElement("p");
-  suggestion.textContent = `Suggestion: ${bigOAnalysis?.suggestion || "N/A"}`;
-  box.appendChild(suggestion);
+  const content = document.createElement("div");
+  content.className = "big-o-content";
+
+  const timeRow = document.createElement("div");
+  timeRow.className = "big-o-row";
+  timeRow.innerHTML = `<span class="big-o-label">⏱️ Time</span><span class="big-o-value">${bigOAnalysis?.timeComplexity || "N/A"}</span>`;
+  content.appendChild(timeRow);
+
+  const spaceRow = document.createElement("div");
+  spaceRow.className = "big-o-row";
+  spaceRow.innerHTML = `<span class="big-o-label">💾 Space</span><span class="big-o-value">${bigOAnalysis?.spaceComplexity || "N/A"}</span>`;
+  content.appendChild(spaceRow);
+
+  const optimalTimeRow = document.createElement("div");
+  optimalTimeRow.className = "big-o-row";
+  optimalTimeRow.innerHTML = `<span class="big-o-label">✨ Optimal Time</span><span class="big-o-value">${bigOAnalysis?.optimalTimeComplexity || "N/A"}</span>`;
+  content.appendChild(optimalTimeRow);
+
+  if (bigOAnalysis?.isOptimal) {
+    const msg = document.createElement("div");
+    msg.className = "big-o-message";
+    msg.innerHTML = `<strong>🎉 Optimal!</strong><span>Your solution is optimal.</span>`;
+    content.appendChild(msg);
+  } else {
+    const msg = document.createElement("div");
+    msg.className = "big-o-message";
+    msg.innerHTML = `<strong>⚡ Improvable</strong><span>${bigOAnalysis?.suggestion || "You can do better."}</span><br><span style="margin-top:6px;display:block;color:var(--leetapex-red)">Flaw: ${bigOAnalysis?.flaw || "N/A"}</span>`;
+    content.appendChild(msg);
+  }
+
+  box.appendChild(content);
+  document.body.appendChild(box);
 }
