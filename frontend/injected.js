@@ -77,8 +77,8 @@ window.fetch = async(...args)=>{
                 },'*');
                 console.log(blackBoard);
                 
-                const { errCount = 0 } = await chrome.storage.local.get("errCount");
-                if (blackBoard["errMessage"]==="Accepted" || errCount>1){
+
+                if (blackBoard["errMessage"]==="Accepted"){
                     window.postMessage({
                         type: "GIVE_RECOMMENDATION",
                         payload : blackBoard

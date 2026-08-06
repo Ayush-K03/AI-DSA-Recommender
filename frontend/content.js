@@ -17,11 +17,12 @@ createHintButton();
 
 async function showDueBanner(){
   const res = await chrome.storage.local.get("allReviews");
-  const showBanner = res.allReviews;
+  const allReviews = res.allReviews || [];
   const problemSlug = window.location.pathname.split("/problems/")[1]?.split("/")[0] || "unknown";
-  let existingIndex = allReviews.findIndex(item => String(item.id) === String(problemSlug));
-  if(!exsistingBanner) return ;
-  showBannerAndButton();
+  let exsistingIndex = allReviews.findIndex(item => String(item.id) === String(problemSlug));
+  if(exsistingIndex==-1) return ;
+  const problemData = allReviews[exsistingIndex];
+  showBannerAndButton(problemData.date, problemData.lastMistake);
 }
 
 
@@ -34,7 +35,7 @@ window.addEventListener("message",async (event)=>{
     const { errCount = 0 } = await chrome.storage.local.get("errCount");
     const newCount = errCount + 1;
     await chrome.storage.local.set({ errCount: newCount });
-    
+
 
     if (errorCounter>2){
 
@@ -76,6 +77,9 @@ window.addEventListener("message",async (event)=>{
 
   
   else if (event?.data?.type ==="GIVE_RECOMMENDATION"){
+    const { errCount = 0 } = await chrome.storage.local.get("errCount");
+    if (errCount<1) return;
+
     event.data.firstAttemptClear = firstAttemptClear;
     console.log(event.data)
     const problemId = window.location.pathname.split("/problems/")[1]?.split("/")[0] || "unknown";
@@ -201,6 +205,7 @@ function extractLeetCodeData() {
     } catch (error) {
         console.error("LeetApex: Failed to parse __NEXT_DATA__", error);
     }
+    showDueBanner();
 }
 // Run when the page loads
 window.addEventListener('load', extractLeetCodeData);

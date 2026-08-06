@@ -184,7 +184,7 @@ async function deleteUserCache(problemId) {
 async function fetchDataForCache(){
     let allReviews;
     const lastDate = new Date();
-    await chrome.storage.local.set({"lastDate":lastDate});
+    await chrome.storage.local.set({"lastDate":lastDate.toISOString()});
     const res = await chrome.storage.local.get("currentUser");
     const userId = res.currentUser;
     fetch(`http://localhost:3300/api/review/all-data?userId=${userId}`, {
