@@ -29,7 +29,7 @@ async function loadReviewToday() {
         const allReviews = storage.allReviews || [];
         const today = new Date().toISOString().split('T')[0];
 
-        const dueToday = allReviews.filter(item => item.date === today);
+        const dueToday = allReviews.filter(item => item.date && new Date(item.date).toISOString().split('T')[0] === today);
 
         if (!dueToday.length) {
             container.innerHTML = '<p class="empty-state">🎉 No reviews due today!</p>';
@@ -59,7 +59,7 @@ async function loadUpcoming() {
         const allReviews = storage.allReviews || [];
         const today = new Date().toISOString().split('T')[0];
 
-        const upcoming = allReviews.filter(item => item.date > today);
+        const upcoming = allReviews.filter(item => item.date && new Date(item.date).toISOString().split('T')[0] > today);
 
         if (!upcoming.length) {
             container.innerHTML = '<p class="empty-state">No upcoming reviews</p>';
@@ -92,7 +92,7 @@ async function loadPastMissed() {
         const allReviews = storage.allReviews || [];
         const today = new Date().toISOString().split('T')[0];
 
-        const past = allReviews.filter(item => item.date < today);
+        const past = allReviews.filter(item => item.date && new Date(item.date).toISOString().split('T')[0] < today);
 
         if (!past.length) {
             container.innerHTML = '<p class="empty-state">No past reviews</p>';

@@ -23,13 +23,16 @@ function createHintButton(){
     if (!tooltip.classList.contains("showing-hint")) tooltip.classList.remove("leetapex-tooltip-visible");
   });
   
+  let timerId = null;
   help_btn.addEventListener("click", () => {
     tooltip.textContent = storage["hintCloud"] || "Error in procuring hint. Try running code again.";
     tooltip.classList.add("leetapex-tooltip-visible");
     tooltip.classList.add("showing-hint");
-    const timerId = setTimeout(() => {
+    if (timerId) clearTimeout(timerId);
+    timerId = setTimeout(() => {
       tooltip.classList.remove("leetapex-tooltip-visible");
       tooltip.classList.remove("showing-hint");
+      timerId = null;
     }, 7500);
   })
 }

@@ -1,3 +1,10 @@
+chrome.runtime.onInstalled.addListener(async () => {
+    const res = await chrome.storage.local.get("currentUser");
+    if (res.currentUser) {
+        await fetchDataForCache();
+    }
+});
+
 chrome.runtime.onStartup.addListener(async () => {
     if (await shouldUpdateCache()) {
         await fetchDataForCache();
@@ -137,6 +144,16 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
         return false;
     }
 
+    else if (message.action === "REFRESH_CACHE") {
+        fetchDataForCache()
+            .then(() => sendResponse({ success: true }))
+            .catch(err => {
+                console.error("Cache refresh failed:", err);
+                sendResponse({ success: false });
+            });
+        return true;
+    }
+
 })
 
 
@@ -157,6 +174,7 @@ async function updateUserCache(problemId, daysToAdd, lastMistake) {
         // It's already in the list! Just update the date.
         allReviews[existingIndex].date = futureDateString;
         allReviews[existingIndex].lastMistake = lastMistake;
+        allReviews[existingIndex].intervalDays = Number(daysToAdd);
     } else {
         // It's a new problem! Add it to the list.
         allReviews.push({
@@ -182,18 +200,23 @@ async function deleteUserCache(problemId) {
 }
 
 async function fetchDataForCache(){
-    let allReviews;
     const lastDate = new Date();
     await chrome.storage.local.set({"lastDate":lastDate.toISOString()});
     const res = await chrome.storage.local.get("currentUser");
     const userId = res.currentUser;
-    fetch(`http://localhost:3300/api/review/all-data?userId=${userId}`, {
+    if (!userId) {
+        console.warn("fetchDataForCache: No currentUser set yet, skipping.");
+        return;
+    }
+    try {
+        const response = await fetch(`http://localhost:3300/api/review/all-data?userId=${userId}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-    })
-    .then(response => response.json())
-    .then(async (data) => {
-        await chrome.storage.local.set({ "allReviews": data })
-    })
-    .catch(error => console.error("Error deleting review reminder:", error));;
+        });
+        const data = await response.json();
+        await chrome.storage.local.set({ "allReviews": data });
+        console.log("Cache refreshed with", data.length, "reviews");
+    } catch (error) {
+        console.error("Error fetching review data for cache:", error);
+    }
 }

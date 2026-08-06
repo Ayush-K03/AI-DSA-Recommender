@@ -37,7 +37,7 @@ window.addEventListener("message",async (event)=>{
     await chrome.storage.local.set({ errCount: newCount });
 
 
-    if (errorCounter>2){
+    if (newCount > 2){
 
       console.log("Hint was called");
       const response =  await backGroundTaskCall(event,"CALL_FOR_HINT");
@@ -200,6 +200,7 @@ function extractLeetCodeData() {
                 console.log("LeetApex: Successfully synced page data to storage.");
                 console.log("LeetApex: Current User:", username);
                 console.log("LeetApex: Current Problem:", problemData);
+                chrome.runtime.sendMessage({ action: "REFRESH_CACHE" });
             });
         }
     } catch (error) {

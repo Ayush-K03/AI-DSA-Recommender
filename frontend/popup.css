@@ -29,3 +29,20 @@ h2 { margin: 0 0 12px 0; color: #ffa116; font-size: 18px; }
 .review-card .interval { font-size: 11px; color: #ffa116; }
 .empty-state { text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; padding: 20px 0; }
 .loading { text-align: center; color: rgba(255,255,255,0.3); font-size: 12px; }
+
+#close-popup {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e0e0e0;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+#close-popup:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
