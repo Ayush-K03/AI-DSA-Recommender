@@ -44,7 +44,7 @@ async function loadReviewToday() {
             card.innerHTML = `
                 <h4><a href="https://leetcode.com/problems/${item.id}" target="_blank">${item.id}</a></h4>
                 <p class="interval">Review interval: ${item.intervalDays || "?"} days</p>
-                <p class="hint">💡 Last hint: ${item.lastMistake || "No hints recorded"}</p>
+                ${item.lastMistake && item.lastMistake !== "Flawless attempt! No hints needed." ? `<p class="hint">💡 Last hint: ${item.lastMistake}</p>` : ""}
             `;
             container.appendChild(card);
         });
@@ -76,7 +76,7 @@ async function loadUpcoming() {
             card.innerHTML = `
                 <h4><a href="https://leetcode.com/problems/${item.id}" target="_blank">${item.id}</a></h4>
                 <p class="interval">Due: ${dueDate} - (${dayName})</p>
-                <p class="hint">💡 ${item.lastMistake || "No hints recorded"}</p>
+                ${item.lastMistake && item.lastMistake !== "Flawless attempt! No hints needed." ? `<p class="hint">💡 ${item.lastMistake}</p>` : ""}
             `;
             container.appendChild(card);
         });
@@ -109,7 +109,7 @@ async function loadPastMissed() {
             card.innerHTML = `
                 <h4><a href="https://leetcode.com/problems/${item.id}" target="_blank">${item.id}</a></h4>
                 <p class="interval">Due: ${dueDate} - (${dayName})</p>
-                <p class="hint">💡 ${item.lastMistake || "No hints recorded"}</p>
+                ${item.lastMistake && item.lastMistake !== "Flawless attempt! No hints needed." ? `<p class="hint">💡 ${item.lastMistake}</p>` : ""}
             `;
             container.appendChild(card);
         });
