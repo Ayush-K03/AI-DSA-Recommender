@@ -71,7 +71,7 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
     else if (message.action =="CALL_FOR_RECOMMENDATION"){
         console.log("I was called for a recommendation!")
         console.log(message.data)
-        const promptString =  message.data.payload.userSolution;
+        const promptString =  message.data.userSolution;
 
         console.log("hehehehhe : ", promptString)
         fetch("http://localhost:3300/api/recommend-ques", {

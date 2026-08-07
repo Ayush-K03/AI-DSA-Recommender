@@ -42,6 +42,7 @@ window.addEventListener("message",async (event)=>{
       console.log("Hint was called");
       const response =  await backGroundTaskCall(event,"CALL_FOR_HINT");
       console.log(`A hint was given ! : ${response.hint}`);
+      updateStats("hintsUsed");
       storage["hintCloud"] = response?.hint?.concept || "Error in procuring hint. Try running code again.";
       chrome.storage.local.set({ hintCloud: storage["hintCloud"] }, () => {
         console.log("Hint cloud saved to local storage:", storage["hintCloud"]);
@@ -66,6 +67,11 @@ window.addEventListener("message",async (event)=>{
   else if (event?.data?.type ==="CALL_FOR_OPTIMALITY_CHECK"){
     const response =  await backGroundTaskCall(event,"CALL_FOR_OPTIMALITY_CHECK");
     console.log("An optimality recommendation was given !");
+    if (response?.optimalityReport?.isOptimal) {
+      updateStats("optimalCount");
+    } else {
+      updateStats("suboptimalCount");
+    }
     console.log(response.optimalityReport)
     createBigOAnalysisBox(response.optimalityReport);
 
@@ -76,19 +82,34 @@ window.addEventListener("message",async (event)=>{
   }
 
   
-  else if (event?.data?.type ==="GIVE_RECOMMENDATION"){
+  else if (event?.data?.type === "FAILED_SUBMIT") {
+    firstAttemptClear = false;
+    updateStats("currentStreak", 0, true);
     const { errCount = 0 } = await chrome.storage.local.get("errCount");
-    if (errCount<1) return;
+    const newCount = errCount + 1;
+    await chrome.storage.local.set({ errCount: newCount });
 
-    event.data.firstAttemptClear = firstAttemptClear;
-    console.log(event.data)
+    if (newCount >= 2) {
+      event.data.payload.firstAttemptClear = firstAttemptClear;
+      const problemId = window.location.pathname.split("/problems/")[1]?.split("/")[0] || "unknown";
+      if (problemId === "unknown") return;
+      event.data.payload.problemId = problemId;
+      const response = await backGroundTaskCall(event, "CALL_FOR_RECOMMENDATION");
+      createRecommendedQuestionsBox(response.recommendation);
+    }
+  }
+
+  else if (event?.data?.type === "GIVE_RECOMMENDATION") {
+    event.data.payload.firstAttemptClear = firstAttemptClear;
+    if (firstAttemptClear) {
+      updateStats("currentStreak");
+    }
     const problemId = window.location.pathname.split("/problems/")[1]?.split("/")[0] || "unknown";
-    if (problemId==="unknown") return;
-    event.data.problemId = problemId;
+    if (problemId === "unknown") return;
+    event.data.payload.problemId = problemId;
     const response = await backGroundTaskCall(event, "CALL_FOR_RECOMMENDATION");
-    console.log("A recommendation was given !");
-    console.log(response.recommendation)
     createRecommendedQuestionsBox(response.recommendation);
+    await chrome.storage.local.set({ errCount: 0 });
   }
 
 
@@ -243,6 +264,32 @@ async function backGroundTaskCall(event,actionName) {
   });
   hideAnalyzingSpinner();
   return response;
+}
+
+// Function to safely update analytics & streak metrics
+async function updateStats(key, increment = 1, reset = false) {
+  const data = await chrome.storage.local.get("leetApexStats");
+  const stats = data.leetApexStats || {
+    optimalCount: 0,
+    suboptimalCount: 0,
+    hintsUsed: 0,
+    currentStreak: 0,
+    bestStreak: 0
+  };
+
+  if (reset) {
+    stats[key] = 0;
+  } else {
+    stats[key] += increment;
+  }
+
+  if (key === "currentStreak") {
+    if (stats.currentStreak > stats.bestStreak) {
+      stats.bestStreak = stats.currentStreak;
+    }
+  }
+
+  await chrome.storage.local.set({ leetApexStats: stats });
 }
 
 script.onload = function() {

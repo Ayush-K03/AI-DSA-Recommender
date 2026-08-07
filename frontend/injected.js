@@ -83,6 +83,11 @@ window.fetch = async(...args)=>{
                         type: "GIVE_RECOMMENDATION",
                         payload : blackBoard
                     },'*');
+                } else {
+                    window.postMessage({
+                        type: "FAILED_SUBMIT",
+                        payload : blackBoard
+                    },'*');
                 }
             }
             

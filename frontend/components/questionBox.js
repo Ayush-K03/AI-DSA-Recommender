@@ -4,8 +4,12 @@ function createRecommendedQuestionsBox(recommendedQuestions) {
     return;
   }
 
+  const existingBox = document.getElementById("leetapex-recommended-questions-box");
+  if (existingBox) existingBox.remove();
+
   const box = document.createElement("div");
   box.id = "leetapex-recommended-questions-box";
+  box.style.zIndex = "2147483647"; // Max z-index to ensure it is never hidden behind LeetCode UI
   
   const header = document.createElement("div");
   header.className = "leetapex-box-header";
@@ -47,37 +51,68 @@ function createRecommendedQuestionsBox(recommendedQuestions) {
     });
   }
   
-  renderList(recommendedQuestions);
+  // Calculate true difficulty and categorize
+  recommendedQuestions.forEach(q => {
+    let base = 2;
+    if (q.difficulty === "Easy") base = 1;
+    if (q.difficulty === "Hard") base = 3;
+    const ar = parseFloat(q.acceptance_rate) || 50;
+    const score = (base * 50) + (100 - ar);
+    
+    if (score < 110) q.tier = 0; // Breathe a little
+    else if (score > 160) q.tier = 2; // Challenge yourself
+    else q.tier = 1; // Keep Going
+  });
 
-  //make a slider 
+  const categories = [
+    { label: "🌱 Breathe a little", value: 0 },
+    { label: "🏃 Keep Going", value: 1 },
+    { label: "🔥 Challenge yourself", value: 2 }
+  ];
+
   const sliderContainer = document.createElement("div");
   sliderContainer.style.marginTop = "12px";
+  sliderContainer.style.marginBottom = "16px";
+  
+  const sliderLabel = document.createElement("div");
+  sliderLabel.id = "leetapex-slider-value-container";
+  sliderLabel.style.textAlign = "center";
+  sliderLabel.style.fontWeight = "600";
+  sliderLabel.style.fontSize = "14px";
+  sliderLabel.style.color = "var(--leetapex-violet)";
+  sliderLabel.textContent = categories[1].label; // Default to Keep Going
   
   const slider = document.createElement("input");
   slider.type = "range";
   slider.min = "0";
-  slider.max = "100";
-  slider.value = "50";
+  slider.max = "2";
+  slider.step = "1";
+  slider.value = "1";
 
-  const sliderValueContainer = document.createElement("div");
-  sliderValueContainer.id = "leetapex-slider-value-container";
-  sliderValueContainer.textContent = `Acceptance Rate Filter: 50%`;
-
-  //show recommended questions based upon the slider value
   slider.addEventListener("input", (e) => {
-    const value = e.target.value;
-    sliderValueContainer.textContent = `Acceptance Rate Filter: ${value}%`;
-    const filteredQuestions = recommendedQuestions.filter(
-      (question) => question.acceptance_rate >= value
-    );
+    const val = parseInt(e.target.value);
+    sliderLabel.textContent = categories[val].label;
+    const filteredQuestions = recommendedQuestions.filter(q => q.tier === val);
     renderList(filteredQuestions);
   });
 
-  sliderContainer.appendChild(sliderValueContainer);
+  sliderContainer.appendChild(sliderLabel);
   sliderContainer.appendChild(slider);
   content.appendChild(sliderContainer);
   content.appendChild(list);
   
   box.appendChild(content);
   document.body.appendChild(box);
+
+  // Initial render
+  const initialQuestions = recommendedQuestions.filter(q => q.tier === 1);
+  if (initialQuestions.length > 0) {
+    renderList(initialQuestions);
+  } else {
+    // Fallback if 'Keep Going' is empty, render whatever is available
+    const fallbackTier = recommendedQuestions.find(q => q.tier !== undefined)?.tier || 0;
+    slider.value = fallbackTier;
+    sliderLabel.textContent = categories[fallbackTier].label;
+    renderList(recommendedQuestions.filter(q => q.tier === fallbackTier));
+  }
 }
